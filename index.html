@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iveandor — Family safety software</title>
+<meta name="description" content="iveandor is a Seoul-based software company building iTrace, a family location-safety service for Galaxy Watch, Android and iPhone." />
+<meta http-equiv="refresh" content="0; url=https://itrace.iveandor.com/" />
+<script>location.replace("https://itrace.iveandor.com/" + location.search + location.hash);</script>
+<link rel="canonical" href="https://itrace.iveandor.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://iveandor.com/" />
+<meta property="og:title" content="iveandor — Family safety software" />
+<meta property="og:description" content="Seoul-based software company building iTrace, a family location-safety service." />
+<meta property="og:image" content="https://itrace.iveandor.com/og-image.png" />
+<link rel="icon" href="https://itrace.iveandor.com/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="https://itrace.iveandor.com/favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="https://itrace.iveandor.com/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://iveandor.com/#organization",
+  "name": "iveandor",
+  "legalName": "강일구",
+  "url": "https://iveandor.com",
+  "email": "support@iveandor.com",
+  "founder": { "@type": "Person", "name": "IlGoo Kang" },
+  "foundingDate": "2026-03",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "5F 221A, 105 Wausan-ro, Mapo-gu",
+    "addressLocality": "Seoul",
+    "addressCountry": "KR"
+  },
+  "taxID": "397-11-03213",
+  "brand": { "@type": "Brand", "name": "iTrace", "url": "https://itrace.iveandor.com" }
+}
+</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+<style>
+  :root {
+    --coral: #FF7A45;
+    --coral-dark: #E05A25;
+    --coral-tint: #FFF1E6;
+    --bg: #FBF6EF;
+    --surface: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-2: #3A3A3A;
+    --ink-muted: #6B6B6B;
+    --line: rgba(26, 26, 26, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --coral-tint: #3A2418;
+      --bg: #141210;
+      --surface: #1E1B18;
+      --ink: #F4EFE8;
+      --ink-2: #D9D2C8;
+      --ink-muted: #A39B90;
+      --line: rgba(244, 239, 232, 0.10);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Pretendard Variable', 'Pretendard', 'Inter', -apple-system,
+      BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--coral-dark); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  header { padding: 28px 0; }
+  .brand { font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+  .brand span { color: var(--coral); }
+
+  .hero { padding: 56px 0 40px; }
+  .hero h1 {
+    margin: 0 0 16px;
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+  .hero p { margin: 0; max-width: 640px; font-size: 18px; color: var(--ink-2); }
+  .hero .ko { margin-top: 10px; font-size: 16px; color: var(--ink-muted); }
+
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin: 0 0 16px; }
+  section { padding: 32px 0; border-top: 1px solid var(--line); }
+
+  .product {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s, transform .15s;
+  }
+  .product:hover { border-color: var(--coral); transform: translateY(-2px); }
+  .product h3 { margin: 0 0 6px; font-size: 24px; letter-spacing: -0.02em; }
+  .product h3 small { font-size: 14px; font-weight: 600; color: var(--coral-dark); margin-left: 8px; }
+  .product p { margin: 0 0 16px; color: var(--ink-2); }
+  .product ul { margin: 0 0 18px; padding-left: 18px; color: var(--ink-2); }
+  .product .cta { font-weight: 700; color: var(--coral-dark); }
+
+  .stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .stores a {
+    font-size: 14px; font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--coral-tint);
+    text-decoration: none;
+  }
+
+  dl.biz {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 32px;
+    margin: 0;
+  }
+  dl.biz dt { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
+  dl.biz dd { margin: 2px 0 0; font-weight: 500; color: var(--ink-2); }
+  @media (max-width: 560px) { dl.biz { grid-template-columns: 1fr; } }
+
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <a class="brand" href="/">iveandor<span>.</span></a>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1>Software that keeps<br />families connected and safe.</h1>
+    <p>iveandor is a software company based in Seoul, Korea. We build iTrace, a family location-safety service for Galaxy Watch, Android and iPhone.</p>
+  </div>
+
+  <section>
+    <h2>Product</h2>
+    <a class="product" href="https://itrace.iveandor.com">
+      <h3>iTrace <small>Live in Korea</small></h3>
+      <p>Guardians see where their children are, and children can call for help with one tap.</p>
+      <ul>
+        <li>Real-time location from a Galaxy Watch or a smartphone</li>
+        <li>Safe zones with arrival and departure alerts</li>
+        <li>SOS with live video and audio recording</li>
+        <li>Voice and text messages between family members</li>
+      </ul>
+      <span class="cta">Visit itrace.iveandor.com →</span>
+    </a>
+    <div class="stores">
+      <a href="https://apps.apple.com/kr/app/itrace/id6761924543">iTrace · App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.iveandor.itrace">iTrace · Google Play</a>
+      <a href="https://apps.apple.com/kr/app/ilogmobile/id6768343628">iTrace Child · App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.iveandor.ilog.mobile">iTrace Child · Google Play</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Company</h2>
+    <dl class="biz">
+      <div><dt>Company · 상호</dt><dd>강일구 (IlGoo Kang)</dd></div>
+      <div><dt>CEO · 대표</dt><dd>강일구 (IlGoo Kang)</dd></div>
+      <div><dt>Business Registration No. · 사업자등록번호</dt><dd>397-11-03213</dd></div>
+      <div><dt>Location-Based Service Provider · 위치기반서비스사업신고</dt><dd>No. 1092 (제1092호)</dd></div>
+      <div><dt>Mail-Order Business Reg. · 통신판매업신고</dt><dd>제 2026-3130278-30-2-01231 호</dd></div>
+      <div><dt>Founded · 설립</dt><dd>March 2026</dd></div>
+      <div><dt>Address · 주소</dt><dd>Room 221A, 5F, 105, Wausan-ro, Mapo-gu, Seoul, Republic of Korea<br />서울특별시 마포구 와우산로 105, 5층 221A호 (서교동)</dd></div>
+      <div><dt>Contact · 연락처</dt><dd><a href="mailto:support@iveandor.com">support@iveandor.com</a></dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="wrap">
+  © 2026 iveandor. All rights reserved.
+</footer>
+</body>
+</html>
