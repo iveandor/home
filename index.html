@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>iveandor — Family safety software</title>
 <meta name="description" content="iveandor is a Seoul-based software company building iTrace, a family location-safety service for Galaxy Watch, Android and iPhone." />
-<meta http-equiv="refresh" content="0; url=https://itrace.iveandor.com/" />
-<script>location.replace("https://itrace.iveandor.com/" + location.search + location.hash);</script>
-<link rel="canonical" href="https://itrace.iveandor.com/" />
+<link rel="canonical" href="https://iveandor.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://iveandor.com/" />
 <meta property="og:title" content="iveandor — Family safety software" />
 <meta property="og:description" content="Seoul-based software company building iTrace, a family location-safety service." />
 <meta property="og:image" content="https://itrace.iveandor.com/og-image.png" />
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="https://itrace.iveandor.com/favicon.svg" type="image/svg+xml" />
 <link rel="icon" href="https://itrace.iveandor.com/favicon-32.png" sizes="32x32" />
 <link rel="apple-touch-icon" href="https://itrace.iveandor.com/apple-touch-icon.png" />
@@ -42,6 +42,7 @@
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
 <style>
   :root {
+    color-scheme: light dark;
     --coral: #FF7A45;
     --coral-dark: #E05A25;
     --coral-tint: #FFF1E6;
@@ -51,6 +52,12 @@
     --ink-2: #3A3A3A;
     --ink-muted: #6B6B6B;
     --line: rgba(26, 26, 26, 0.08);
+    --line-strong: rgba(26, 26, 26, 0.22);
+    --link: #C44818;
+    --on-coral: #1A1A1A;
+    --zone: rgba(255, 122, 69, 0.12);
+    --zone-line: rgba(255, 122, 69, 0.45);
+    --gutter: clamp(20px, 5vw, 48px);
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -61,127 +68,377 @@
       --ink-2: #D9D2C8;
       --ink-muted: #A39B90;
       --line: rgba(244, 239, 232, 0.10);
+      --line-strong: rgba(244, 239, 232, 0.26);
+      --link: #FF9466;
+      --zone: rgba(255, 122, 69, 0.14);
+      --zone-line: rgba(255, 122, 69, 0.50);
     }
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
     font-family: 'Pretendard Variable', 'Pretendard', 'Inter', -apple-system,
       BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    font-size: 1.0625rem;
     line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--coral-dark); }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3, h4, p, ul, dl, dd { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  a { color: var(--link); text-underline-offset: 0.18em; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .wrap { width: min(100% - 2 * var(--gutter), 70rem); margin-inline: auto; }
 
-  header { padding: 28px 0; }
-  .brand { font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
-  .brand span { color: var(--coral); }
-
-  .hero { padding: 56px 0 40px; }
-  .hero h1 {
-    margin: 0 0 16px;
-    font-size: clamp(32px, 6vw, 52px);
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+  .skip {
+    position: absolute; left: var(--gutter); top: -100px;
+    padding: 10px 16px; border-radius: 10px;
+    background: var(--ink); color: var(--bg); font-weight: 600; text-decoration: none;
   }
-  .hero p { margin: 0; max-width: 640px; font-size: 18px; color: var(--ink-2); }
-  .hero .ko { margin-top: 10px; font-size: 16px; color: var(--ink-muted); }
+  .skip:focus { top: 12px; }
 
-  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin: 0 0 16px; }
-  section { padding: 32px 0; border-top: 1px solid var(--line); }
+  .site-header { padding-block: 22px; }
+  .header-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 24px; }
+  .brand { font-size: 1.375rem; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
+  .brand-dot { color: var(--coral); }
+  .nav { display: flex; gap: clamp(16px, 3vw, 32px); }
+  .nav-link { display: inline-block; padding: 6px 0; font-size: 0.9375rem; font-weight: 500; color: var(--ink-2); text-decoration: none; }
+  .nav-link:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--coral); text-decoration-thickness: 2px; }
 
-  .product {
-    display: block;
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+    padding-block: clamp(48px, 9vw, 120px) clamp(72px, 12vw, 152px);
+  }
+  .hero-title {
+    max-width: 13.2em;
+    font-size: clamp(2.375rem, 1.1rem + 5.6vw, 5.25rem);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  .hero-pin { white-space: nowrap; }
+  .dot {
+    display: inline-block; position: relative;
+    width: 0.2em; height: 0.2em; margin-left: 0.06em;
+    border-radius: 50%; background: var(--coral);
+  }
+  .dot::before, .dot::after {
+    content: ""; position: absolute; left: 50%; top: 50%; z-index: -1;
+    border-radius: 50%; pointer-events: none;
+  }
+  .dot::before {
+    width: 5.6em; height: 5.6em; margin: -2.8em 0 0 -2.8em;
+    background: var(--zone); border: 1.5px solid var(--zone-line);
+    animation: zone-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s both;
+  }
+  .dot::after {
+    width: 9em; height: 9em; margin: -4.5em 0 0 -4.5em;
+    border: 1.5px solid var(--zone-line);
+    animation: zone-ping 1.6s cubic-bezier(0.2, 0.6, 0.3, 1) 0.7s both;
+  }
+  @keyframes zone-in { from { transform: scale(0.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes zone-ping { from { transform: scale(0.3); opacity: 0.9; } to { transform: scale(1); opacity: 0; } }
+  .hero-ko {
+    margin-top: clamp(16px, 2.4vw, 28px);
+    font-size: clamp(1.125rem, 0.9rem + 1vw, 1.625rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: clamp(32px, 5vw, 56px); }
+  .hero-note { max-width: 27em; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); }
+  .hero-note-ko { display: block; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    min-height: 52px; padding: 12px 22px;
+    border-radius: 14px;
+    background: var(--coral); color: var(--on-coral);
+    font-size: 1.0625rem; font-weight: 700; letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: background-color .15s;
+  }
+  .btn:hover { background: var(--coral-dark); }
+  .btn:active { transform: translateY(1px); }
+  .btn-ko { padding-left: 12px; border-left: 1px solid rgba(26, 26, 26, 0.32); font-size: 0.9375rem; font-weight: 600; }
+
+  .band { padding-block: clamp(56px, 8vw, 104px); border-top: 1px solid var(--line); }
+  .band-grid { display: grid; gap: 24px 48px; }
+  .band-title { font-size: 1.375rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; }
+  .band-title-ko { margin-left: 4px; font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--ink-muted); }
+  @media (min-width: 860px) {
+    .band-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+    .band-title-ko { display: block; margin-left: 0; }
+  }
+
+  .lede {
+    max-width: 30em;
+    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
+    font-weight: 500;
+    line-height: 1.42;
+    letter-spacing: -0.015em;
+  }
+  .lede-ko { max-width: 34em; margin-top: 20px; line-height: 1.75; color: var(--ink-muted); }
+
+  .card {
+    padding: clamp(24px, 4vw, 44px);
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 28px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color .15s, transform .15s;
   }
-  .product:hover { border-color: var(--coral); transform: translateY(-2px); }
-  .product h3 { margin: 0 0 6px; font-size: 24px; letter-spacing: -0.02em; }
-  .product h3 small { font-size: 14px; font-weight: 600; color: var(--coral-dark); margin-left: 8px; }
-  .product p { margin: 0 0 16px; color: var(--ink-2); }
-  .product ul { margin: 0 0 18px; padding-left: 18px; color: var(--ink-2); }
-  .product .cta { font-weight: 700; color: var(--coral-dark); }
-
-  .stores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-  .stores a {
-    font-size: 14px; font-weight: 600;
-    padding: 8px 14px;
+  .card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; }
+  .card-name { font-size: clamp(2rem, 1.6rem + 1.6vw, 2.75rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.035em; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 13px 6px 11px;
     border-radius: 999px;
     background: var(--coral-tint);
+    font-size: 0.875rem; font-weight: 600; line-height: 1.4;
+  }
+  .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+  .card-desc { max-width: 32em; margin-top: 18px; font-size: 1.1875rem; line-height: 1.5; letter-spacing: -0.01em; }
+  .card-ko { max-width: 36em; margin-top: 8px; font-size: 1rem; color: var(--ink-muted); }
+  .card-apps { max-width: 36em; margin-top: 18px; font-size: 1rem; color: var(--ink-2); }
+
+  .features { display: grid; gap: 0 40px; margin-block: 30px 28px; border-bottom: 1px solid var(--line); }
+  .feature { padding-block: 16px; border-top: 1px solid var(--line); }
+  .feature-name { font-weight: 700; letter-spacing: -0.01em; }
+  .feature-text { font-size: 0.9375rem; color: var(--ink-2); }
+  .feature-ko { margin-top: 2px; font-size: 0.875rem; color: var(--ink-muted); }
+  @media (min-width: 620px) { .features { grid-template-columns: 1fr 1fr; } }
+
+  .stores { margin-top: 36px; }
+  .stores-title { font-size: 1rem; font-weight: 700; }
+  .stores-title-ko { margin-left: 2px; font-size: 0.875rem; font-weight: 500; color: var(--ink-muted); }
+  .store-list { display: grid; gap: 14px; margin-top: 14px; }
+  .store { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; }
+  .store-name { font-weight: 700; }
+  .store-role { margin-left: 4px; font-size: 0.9375rem; color: var(--ink-muted); }
+  .store-links { display: flex; gap: 8px; }
+  .btn-quiet {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 8px 16px;
+    border: 1.5px solid var(--line-strong); border-radius: 12px;
+    color: var(--ink); font-size: 0.9375rem; font-weight: 600;
     text-decoration: none;
+    transition: border-color .15s;
+  }
+  .btn-quiet:hover { border-color: var(--ink); }
+  @media (max-width: 519px) {
+    .store-links { width: 100%; }
+    .btn-quiet { flex: 1; }
   }
 
-  dl.biz {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px 32px;
-    margin: 0;
+  .record { border-bottom: 1px solid var(--line); }
+  .record-row { display: grid; gap: 4px 32px; padding-block: 18px; border-top: 1px solid var(--line); }
+  .record-label { font-size: 0.9375rem; font-weight: 600; line-height: 1.4; color: var(--ink-2); }
+  .record-label-ko { display: block; font-size: 0.8125rem; font-weight: 500; color: var(--ink-muted); }
+  .record-value { font-size: 1.125rem; font-weight: 500; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .record-line { display: block; }
+  .record-line + .record-line { margin-top: 4px; }
+  @media (min-width: 620px) {
+    .record-row { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); align-items: baseline; }
   }
-  dl.biz dt { font-size: 12px; font-weight: 600; color: var(--ink-muted); }
-  dl.biz dd { margin: 2px 0 0; font-weight: 500; color: var(--ink-2); }
-  @media (max-width: 560px) { dl.biz { grid-template-columns: 1fr; } }
 
-  footer { padding: 32px 0 48px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-muted); }
+  .contact-text { max-width: 30em; color: var(--ink-2); }
+  .contact-ko { display: block; color: var(--ink-muted); }
+  .contact-mail {
+    display: inline-block; margin-top: 18px;
+    font-size: clamp(1.375rem, 0.9rem + 3vw, 3rem);
+    font-weight: 800; line-height: 1.15; letter-spacing: -0.035em;
+    color: var(--ink);
+    text-decoration: underline; text-decoration-color: var(--coral);
+    text-decoration-thickness: 0.08em; text-underline-offset: 0.16em;
+    overflow-wrap: anywhere;
+  }
+  .contact-mail:hover { color: var(--link); }
+
+  .site-footer { padding-block: 32px 56px; border-top: 1px solid var(--line); font-size: 0.8125rem; color: var(--ink-muted); }
+  .footer-biz { display: flex; flex-wrap: wrap; gap: 2px 20px; margin-top: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .dot::before { animation: none; }
+    .dot::after { display: none; }
+    .btn, .btn-quiet { transition: none; }
+  }
 </style>
 </head>
 <body>
-<header class="wrap">
-  <a class="brand" href="/">iveandor<span>.</span></a>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/">iveandor<span class="brand-dot">.</span></a>
+    <nav aria-label="Sections">
+      <ul class="nav">
+        <li><a class="nav-link" href="#about">About</a></li>
+        <li><a class="nav-link" href="#product">Product</a></li>
+        <li><a class="nav-link" href="#company">Company</a></li>
+        <li><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-<main class="wrap">
-  <div class="hero">
-    <h1>Software that keeps<br />families connected and safe.</h1>
-    <p>iveandor is a software company based in Seoul, Korea. We build iTrace, a family location-safety service for Galaxy Watch, Android and iPhone.</p>
-  </div>
-
-  <section>
-    <h2>Product</h2>
-    <a class="product" href="https://itrace.iveandor.com">
-      <h3>iTrace <small>Live in Korea</small></h3>
-      <p>Guardians see where their children are, and children can call for help with one tap.</p>
-      <ul>
-        <li>Real-time location from a Galaxy Watch or a smartphone</li>
-        <li>Safe zones with arrival and departure alerts</li>
-        <li>SOS with live video and audio recording</li>
-        <li>Voice and text messages between family members</li>
-      </ul>
-      <span class="cta">Visit itrace.iveandor.com →</span>
-    </a>
-    <div class="stores">
-      <a href="https://apps.apple.com/kr/app/itrace/id6761924543">iTrace · App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=com.iveandor.itrace">iTrace · Google Play</a>
-      <a href="https://apps.apple.com/kr/app/ilogmobile/id6768343628">iTrace Child · App Store</a>
-      <a href="https://play.google.com/store/apps/details?id=com.iveandor.ilog.mobile">iTrace Child · Google Play</a>
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <h1 class="hero-title" id="hero-title">A family safety software company in <span class="hero-pin">Seoul<span class="dot" aria-hidden="true"></span></span></h1>
+      <p class="hero-ko" lang="ko">서울의 가족 안전 소프트웨어 회사</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://itrace.iveandor.com">Visit iTrace <span class="btn-ko" lang="ko">iTrace 바로가기</span></a>
+        <p class="hero-note">iTrace is our family location-safety service, live in Korea.
+          <span class="hero-note-ko" lang="ko">한국에서 운영 중인 가족 위치 안전 서비스입니다.</span></p>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>Company</h2>
-    <dl class="biz">
-      <div><dt>Company · 상호</dt><dd>강일구 (IlGoo Kang)</dd></div>
-      <div><dt>CEO · 대표</dt><dd>강일구 (IlGoo Kang)</dd></div>
-      <div><dt>Business Registration No. · 사업자등록번호</dt><dd>397-11-03213</dd></div>
-      <div><dt>Location-Based Service Provider · 위치기반서비스사업신고</dt><dd>No. 1092 (제1092호)</dd></div>
-      <div><dt>Mail-Order Business Reg. · 통신판매업신고</dt><dd>제 2026-3130278-30-2-01231 호</dd></div>
-      <div><dt>Founded · 설립</dt><dd>March 2026</dd></div>
-      <div><dt>Address · 주소</dt><dd>Room 221A, 5F, 105, Wausan-ro, Mapo-gu, Seoul, Republic of Korea<br />서울특별시 마포구 와우산로 105, 5층 221A호 (서교동)</dd></div>
-      <div><dt>Contact · 연락처</dt><dd><a href="mailto:support@iveandor.com">support@iveandor.com</a></dd></div>
-    </dl>
+  <section class="band" id="about" aria-labelledby="about-title">
+    <div class="wrap band-grid">
+      <h2 class="band-title" id="about-title">About <span class="band-title-ko" lang="ko">소개</span></h2>
+      <div>
+        <p class="lede">iveandor is a software company in Seoul. We make wearable and mobile software for family safety. Our work today is iTrace, a service that shows guardians where their children are and lets children call for help.</p>
+        <p class="lede-ko" lang="ko">iveandor는 서울에 있는 소프트웨어 회사입니다. 가족의 안전을 위한 웨어러블·모바일 소프트웨어를 만듭니다. 지금은 보호자가 자녀의 위치를 확인하고 자녀가 도움을 요청할 수 있는 서비스, iTrace를 운영하고 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="product" aria-labelledby="product-title">
+    <div class="wrap band-grid">
+      <h2 class="band-title" id="product-title">Product <span class="band-title-ko" lang="ko">제품</span></h2>
+      <article class="card" aria-labelledby="itrace-title">
+        <div class="card-head">
+          <h3 class="card-name" id="itrace-title">iTrace</h3>
+          <p class="badge"><span class="badge-dot" aria-hidden="true"></span>Live in Korea</p>
+        </div>
+        <p class="card-desc">A family location-safety service. Guardians see where their children are in real time, and children ask for help with one touch.</p>
+        <p class="card-ko" lang="ko">가족 위치 안전 서비스입니다. 보호자가 자녀 위치를 실시간으로 확인하고, 자녀는 원터치로 도움을 요청합니다.</p>
+        <p class="card-apps">Three apps work together: a Galaxy Watch (Wear OS) tracker app, a smartphone app for the child, and an app for guardians.</p>
+        <p class="card-ko" lang="ko">Galaxy Watch(Wear OS) 트래커 앱, 자녀 스마트폰 앱, 보호자 앱으로 구성됩니다.</p>
+
+        <ul class="features">
+          <li class="feature">
+            <p class="feature-name">Real-time location</p>
+            <p class="feature-text">From a Galaxy Watch or a smartphone.</p>
+            <p class="feature-ko" lang="ko">실시간 위치</p>
+          </li>
+          <li class="feature">
+            <p class="feature-name">Safe zones</p>
+            <p class="feature-text">Alerts when a child arrives or leaves.</p>
+            <p class="feature-ko" lang="ko">안심존 (도착·이탈 알림)</p>
+          </li>
+          <li class="feature">
+            <p class="feature-name">SOS</p>
+            <p class="feature-text">Video and audio recorded on the scene.</p>
+            <p class="feature-ko" lang="ko">SOS (현장 영상·음성 녹화)</p>
+          </li>
+          <li class="feature">
+            <p class="feature-name">Family messages</p>
+            <p class="feature-text">Voice and text between family members.</p>
+            <p class="feature-ko" lang="ko">가족 간 음성·텍스트 메시지</p>
+          </li>
+        </ul>
+
+        <a class="btn" href="https://itrace.iveandor.com">Visit iTrace <span class="btn-ko" lang="ko">iTrace 바로가기</span></a>
+
+        <div class="stores">
+          <h4 class="stores-title">Download the apps <span class="stores-title-ko" lang="ko">앱 다운로드</span></h4>
+          <ul class="store-list">
+            <li class="store">
+              <p><span class="store-name">iTrace</span> <span class="store-role">Guardian app <span lang="ko">보호자 앱</span></span></p>
+              <div class="store-links">
+                <a class="btn-quiet" href="https://apps.apple.com/kr/app/itrace/id6761924543" aria-label="iTrace on the App Store">App Store</a>
+                <a class="btn-quiet" href="https://play.google.com/store/apps/details?id=com.iveandor.itrace" aria-label="iTrace on Google Play">Google Play</a>
+              </div>
+            </li>
+            <li class="store">
+              <p><span class="store-name" lang="ko">iTrace 자녀</span> <span class="store-role">Child's smartphone app <span lang="ko">자녀 스마트폰 앱</span></span></p>
+              <div class="store-links">
+                <a class="btn-quiet" href="https://apps.apple.com/kr/app/ilogmobile/id6768343628" aria-label="iTrace 자녀 on the App Store">App Store</a>
+                <a class="btn-quiet" href="https://play.google.com/store/apps/details?id=com.iveandor.ilog.mobile" aria-label="iTrace 자녀 on Google Play">Google Play</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" id="company" aria-labelledby="company-title">
+    <div class="wrap band-grid">
+      <h2 class="band-title" id="company-title">Company <span class="band-title-ko" lang="ko">회사 정보</span></h2>
+      <dl class="record">
+        <div class="record-row">
+          <dt class="record-label">Brand <span class="record-label-ko" lang="ko">브랜드</span></dt>
+          <dd class="record-value">iveandor</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Business name <span class="record-label-ko" lang="ko">상호</span></dt>
+          <dd class="record-value" lang="ko">강일구</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Representative <span class="record-label-ko" lang="ko">대표</span></dt>
+          <dd class="record-value"><span lang="ko">강일구</span> (IlGoo Kang)</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Business registration no. <span class="record-label-ko" lang="ko">사업자등록번호</span></dt>
+          <dd class="record-value">397-11-03213</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Location-based service business report <span class="record-label-ko" lang="ko">위치기반서비스사업 신고</span></dt>
+          <dd class="record-value"><span lang="ko">제1092호</span> (No. 1092)</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Mail-order business report <span class="record-label-ko" lang="ko">통신판매업 신고</span></dt>
+          <dd class="record-value" lang="ko">제 2026-3130278-30-2-01231 호</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Founded <span class="record-label-ko" lang="ko">설립</span></dt>
+          <dd class="record-value"><span lang="ko">2026년 3월</span> (March 2026)</dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Address <span class="record-label-ko" lang="ko">주소</span></dt>
+          <dd class="record-value">
+            <span class="record-line" lang="ko">서울특별시 마포구 와우산로 105, 5층 221A호 (서교동)</span>
+            <span class="record-line">5F 221A, 105 Wausan-ro, Mapo-gu, Seoul, Korea</span>
+          </dd>
+        </div>
+        <div class="record-row">
+          <dt class="record-label">Contact <span class="record-label-ko" lang="ko">연락처</span></dt>
+          <dd class="record-value"><a href="mailto:support@iveandor.com">support@iveandor.com</a></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band" id="contact" aria-labelledby="contact-title">
+    <div class="wrap band-grid">
+      <h2 class="band-title" id="contact-title">Contact <span class="band-title-ko" lang="ko">문의</span></h2>
+      <div>
+        <p class="contact-text">For questions about the company or iTrace, send us an email.
+          <span class="contact-ko" lang="ko">회사나 iTrace에 관한 문의는 이메일로 보내 주세요.</span></p>
+        <a class="contact-mail" href="mailto:support@iveandor.com">support@iveandor.com</a>
+      </div>
+    </div>
   </section>
 </main>
 
-<footer class="wrap">
-  © 2026 iveandor. All rights reserved.
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 iveandor. All rights reserved.</p>
+    <p class="footer-biz">
+      <span>Business name (<span lang="ko">상호</span>) <span lang="ko">강일구</span></span>
+      <span>Business registration no. (<span lang="ko">사업자등록번호</span>) 397-11-03213</span>
+    </p>
+  </div>
 </footer>
 </body>
 </html>
